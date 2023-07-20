@@ -15,23 +15,34 @@ class Solution {
         merge(nums, low, mid, high);
     }
     
-    void merge(int nums[], int low, int mid, int high)
+    static void merge(int nums[], int low, int mid, int high)
     {
-        int temp[] = new int[high + 1];
-        int left = low, right = mid + 1, k = 0;
-        while(left <= mid && right <= high)
-        {
-            if(nums[left] > nums[right])
-                temp[k++] = nums[right++];
-            else
-                temp[k++] = nums[left++];
+        ArrayList<Integer> temp = new ArrayList<>(); 
+        int left = low;      
+        int right = mid + 1;
+
+        while (left <= mid && right <= high) {
+            if (nums[left] <= nums[right]) {
+                temp.add(nums[left]);
+                left++;
+            } else {
+                temp.add(nums[right]);
+                right++;
+            }
         }
-        while(left <= mid)
-            temp[k++] = nums[left++];
-        while(right <= high)
-            temp[k++] = nums[right++];
-        
-        for(int i = 0; i < k; i++)
-            nums[low + i] = temp[i];
+
+        while (left <= mid) {
+            temp.add(nums[left]);
+            left++;
+        }
+
+        while (right <= high) {
+            temp.add(nums[right]);
+            right++;
+        }
+
+        for (int i = low; i <= high; i++) {
+            nums[i] = temp.get(i - low);
+        }
     }
 }
