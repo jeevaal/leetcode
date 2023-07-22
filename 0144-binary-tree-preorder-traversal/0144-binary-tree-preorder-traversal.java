@@ -15,24 +15,56 @@
  */
 class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
+//         List<Integer> l = new ArrayList<>();
+        
+//         Stack<TreeNode> s = new Stack<>();
+        
+//         while(true)
+//         {
+//             if(root != null)
+//             {
+//                 s.push(root);
+//                 l.add(root.val);
+//                 root = root.left;
+//             }
+//             else
+//             {
+//                 if(s.isEmpty())
+//                     break;
+//                 root = s.pop();
+//                 root = root.right;
+//             }
+//         }
+//         return l;
+        
+//        Morris preorder traversal
         List<Integer> l = new ArrayList<>();
         
-        Stack<TreeNode> s = new Stack<>();
-        
-        while(true)
+        while(root != null)
         {
-            if(root != null)
+            if(root.left == null)
             {
-                s.push(root);
                 l.add(root.val);
-                root = root.left;
+                root = root.right;
             }
             else
             {
-                if(s.isEmpty())
-                    break;
-                root = s.pop();
-                root = root.right;
+                TreeNode temp = root.left;
+                
+                while(temp.right != null && temp.right != root)
+                    temp = temp.right;
+                
+                if(temp.right == null)
+                {
+                    temp.right = root;
+                    l.add(root.val);
+                    root = root.left;
+                }
+                else
+                {
+                    temp.right = null;
+                    root = root.right;
+                }
             }
         }
         return l;
