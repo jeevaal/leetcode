@@ -14,22 +14,41 @@ class Solution {
             int destination = prerequisite[0];
             addEdge(source, destination, adjacencyList, indegree);
         }
+//         using bfs
+//         Queue<Integer> q = new LinkedList<>();
+        
+//         for(int i = 0; i < numCourses; i++)
+//         {
+//             if(indegree.get(i) == 0)
+//                 q.add(i);
+//         }
 
-        Queue<Integer> q = new LinkedList<>();
+//         while (!q.isEmpty()) {
+//             int node = q.poll();
+//             topo.add(node);
+//             for (int neighbor : adjacencyList.get(node)) {
+//                 indegree.put(neighbor, indegree.get(neighbor) - 1);
+//                 if (indegree.get(neighbor) == 0) {
+//                     q.add(neighbor);
+//                 }
+//             }
+//         }
+        
+        Stack<Integer> q = new Stack<>();
         
         for(int i = 0; i < numCourses; i++)
         {
             if(indegree.get(i) == 0)
-                q.add(i);
+                q.push(i);
         }
 
         while (!q.isEmpty()) {
-            int node = q.poll();
+            int node = q.pop();
             topo.add(node);
             for (int neighbor : adjacencyList.get(node)) {
                 indegree.put(neighbor, indegree.get(neighbor) - 1);
                 if (indegree.get(neighbor) == 0) {
-                    q.add(neighbor);
+                    q.push(neighbor);
                 }
             }
         }
