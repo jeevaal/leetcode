@@ -74,26 +74,50 @@ class Solution
             }
         }
         
+        // using bfs
+        // Queue<Integer> q = new LinkedList<Integer>();
+        // for(int i = 0;i<V;i++) {
+        //     //adding nodes to queue with indegree = 0
+        //     if(indegree[i] == 0) {
+        //         q.add(i);
+        //     }
+        // }
         
-        Queue<Integer> q = new LinkedList<Integer>();
+        // int ind=0;
+        
+        // while(!q.isEmpty()) {
+        //     int node = q.poll();
+        //     topo[ind++] = node;
+            
+        //     //getting neighbour nodes of popped node and decreasing  their indegree by1
+        //     for(int it: adj.get(node)) {
+        //         indegree[it]--;
+        //         if(indegree[it] == 0) {
+        //             q.add(it);
+        //         }
+        //     }
+        // }
+        
+        // using dfs
+        Stack<Integer> q = new Stack<Integer>();
         for(int i = 0;i<V;i++) {
             //adding nodes to queue with indegree = 0
             if(indegree[i] == 0) {
-                q.add(i);
+                q.push(i);
             }
         }
         
         int ind=0;
         
         while(!q.isEmpty()) {
-            Integer node = q.poll();
+            int node = q.pop();
             topo[ind++] = node;
             
             //getting neighbour nodes of popped node and decreasing  their indegree by1
             for(int it: adj.get(node)) {
                 indegree[it]--;
                 if(indegree[it] == 0) {
-                    q.add(it);
+                    q.push(it);
                 }
             }
         }
