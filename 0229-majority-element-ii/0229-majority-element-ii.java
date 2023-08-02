@@ -35,12 +35,13 @@ class Solution {
                 count1++;
             else if(nums[i] == ele2)
                 count2++;
-            
-            if(count1 > n / 3 && !res.contains(ele1))
-                res.add(ele1);
-            if(count2 > n / 3 && !res.contains(ele2))
-                res.add(ele2);
         }
+        
+        int minimumToHave = n / 3 + 1;
+        if(count1 >= minimumToHave)
+            res.add(ele1);
+        if(count2 >= minimumToHave)
+            res.add(ele2);
         
         return res;
     }
