@@ -9,10 +9,10 @@ class Solution {
     public int ncr(int n, int r)
     {
         double res = 1;
-        for(int i = 1; i <= r; i++)
+        for(int i = 0; i < r; i++)
         {
-            res = res * (n - i + 1);
-            res = res / (i);
+            res = res * (n - i);
+            res = res / (i + 1);
         }
         return (int)Math.round(res);
     }
