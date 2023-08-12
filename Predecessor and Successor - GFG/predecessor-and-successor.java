@@ -140,20 +140,21 @@ public static void findPreSuc(Node root, int key)
 		}
 		else
 		{
-		    Node temp = null;
+		    Node temp = curr.left;;
 			
-			if(curr.left != null){
-			 temp = curr.left;
-			while(temp != null && temp.right != null)
-				temp = temp.right;
-			pre = temp;
+			if(temp != null) 
+			{
+    			while(temp.right != null)
+    				temp = temp.right;
+    			pre = temp;
 			}
 
-            if(curr.right!=null){
-			temp = curr.right;
-			while(temp != null && temp.left != null)
-				temp = temp.left;
-			suc = temp;
+            temp = curr.right;
+            if(temp != null)
+            {
+    			while(temp.left != null)
+    				temp = temp.left;
+    			suc = temp;
             }
 			break;
 		}
