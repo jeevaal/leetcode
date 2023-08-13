@@ -55,6 +55,8 @@ class Main {
 // } Driver Code Ends
 
 
+
+
 /*Complete the function below*/
 
 
@@ -65,16 +67,16 @@ class Solution
     {
         // add your code here
         int topo[] = new int[V];
-        int indegree[] = new int[V];
-        
-        //finding indegree
-        for(int i = 0;i<V;i++) {
-            for(int it: adj.get(i)) {
-                indegree[it]++;
-            }
-        }
         
         // using bfs
+        // int indegree[] = new int[V];
+        
+        // //finding indegree
+        // for(int i = 0;i<V;i++) {
+        //     for(int it: adj.get(i)) {
+        //         indegree[it]++;
+        //     }
+        // }
         // Queue<Integer> q = new LinkedList<Integer>();
         // for(int i = 0;i<V;i++) {
         //     //adding nodes to queue with indegree = 0
@@ -99,30 +101,27 @@ class Solution
         // }
         
         // using dfs
-        Stack<Integer> q = new Stack<Integer>();
-        for(int i = 0;i<V;i++) {
-            //adding nodes to queue with indegree = 0
-            if(indegree[i] == 0) {
-                q.push(i);
-            }
+        Stack<Integer> s = new Stack<Integer>();
+        int vis[] = new int[V];
+        for(int i = 0; i < V; i++)
+        {
+            if(vis[i] == 0)
+                topoUsingDfs(0, V, s, adj, vis);
         }
-        
-        int ind=0;
-        
-        while(!q.isEmpty()) {
-            int node = q.pop();
-            topo[ind++] = node;
-            
-            //getting neighbour nodes of popped node and decreasing  their indegree by1
-            for(int it: adj.get(node)) {
-                indegree[it]--;
-                if(indegree[it] == 0) {
-                    q.push(it);
-                }
-            }
-        }
-        
+        for(int i = 0; i < V; i++)
+            topo[i] = s.pop();
         return topo;
         
+    }
+    // recursive dfs, element should be stored at last
+    static void topoUsingDfs(int source, int V, Stack<Integer> s, ArrayList<ArrayList<Integer>> adj, int vis[])
+    {
+        vis[source] = 1;
+        for(int e : adj.get(source))
+        {
+            if(vis[e] == 0)
+                topoUsingDfs(e, V, s, adj, vis);
+        }
+        s.push(source);
     }
 }
