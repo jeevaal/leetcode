@@ -22,9 +22,17 @@ class Solution {
                     sum += nums[k];
                     sum += nums[l];
                     if(sum < target)
+                    {
                         k++;
+                        while(k < l && nums[k] == nums[k - 1])
+                            k++;
+                    }    
                     else if(sum > target)
+                    {
                         l--;
+                        while(k < l && nums[l] == nums[l + 1])
+                            l--;
+                    }    
                     else
                     {
                         List<Integer> temp = new ArrayList<>();
