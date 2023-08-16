@@ -5,11 +5,6 @@ class Solution {
         
         if(strs.length==0)
             return s;
-
-        if(strs.length==1){
-            s+=strs[0];
-            return s;
-        }
         
         for(int i=0;i<strs.length;i++)
         {
