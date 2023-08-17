@@ -23,8 +23,7 @@ class BSTIterator {
     
     public int next() {
         TreeNode temp = s.pop();
-        if(temp.right != null)
-            pushAll(temp.right);
+        pushAll(temp.right);
         return temp.val;
     }
     
