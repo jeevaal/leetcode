@@ -131,6 +131,8 @@ class Solution {
         // Your code here
         if(node == null)
             return;
+        if(node.left == null && node.right == null)
+            return;
         
         mirror(node.left);
         mirror(node.right);
