@@ -58,12 +58,14 @@ class Solution {
         List<List<Integer>> res = new ArrayList<>();
         for(TreeMap<Integer, PriorityQueue<Integer>> x : map.values())
         {
-            res.add(new ArrayList<>());
+            // res.add(new ArrayList<>());
+            List<Integer> temp = new ArrayList<>();
             for(PriorityQueue<Integer> y : x.values())
             {
                 while(!y.isEmpty())
-                    res.get(res.size() - 1).add(y.poll());
+                    temp.add(y.poll());
             }
+            res.add(temp);
         }
         
         return res;
