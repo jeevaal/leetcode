@@ -14,52 +14,58 @@
  * }
  */
 
-class Tuple {
+class Pair
+{
     TreeNode node;
-    int row;
-    int col;
-    public Tuple(TreeNode _node, int _row, int _col) {
-        node = _node;
-        row = _row;
-        col = _col;
+    int x;//taken in reverse order according ti the question
+    int y;
+    
+    Pair(TreeNode node, int x, int y)
+    {
+        this.node = node;
+        this.x = x;
+        this.y = y;
     }
 }
+
 class Solution {
-    public static List < List < Integer >> verticalTraversal(TreeNode root) {
-        TreeMap < Integer, TreeMap < Integer, PriorityQueue < Integer >>> map = new TreeMap < > ();
-        Queue < Tuple > q = new LinkedList < Tuple > ();
-        q.offer(new Tuple(root, 0, 0));
-        while (!q.isEmpty()) {
-            Tuple tuple = q.poll();
-            TreeNode node = tuple.node;
-            int x = tuple.row;
-            int y = tuple.col;
-
-
-            if (!map.containsKey(x)) {
-                map.put(x, new TreeMap < > ());
-            }
-            if (!map.get(x).containsKey(y)) {
-                map.get(x).put(y, new PriorityQueue < > ());
-            }
-            map.get(x).get(y).offer(node.val);
-
-            if (node.left != null) {
-                q.offer(new Tuple(node.left, x - 1, y + 1));
-            }
-            if (node.right != null) {
-                q.offer(new Tuple(node.right, x + 1, y + 1));
+    public List<List<Integer>> verticalTraversal(TreeNode root) {
+        TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
+        
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root, 0, 0));
+        while(!q.isEmpty())
+        {
+            TreeNode temp = q.peek().node;
+            int x = q.peek().x;
+            int y = q.peek().y;
+            
+            q.poll();
+            
+            if(!map.containsKey(x))
+                map.put(x, new TreeMap<>());
+            if(!map.get(x).containsKey(y))
+                map.get(x).put(y, new PriorityQueue<>());
+            
+            map.get(x).get(y).add(temp.val);
+            
+            if(temp.left != null)
+                q.add(new Pair(temp.left, x - 1, y + 1));
+            if(temp.right != null)
+                q.add(new Pair(temp.right, x + 1, y + 1));
+        }
+        
+        List<List<Integer>> res = new ArrayList<>();
+        for(TreeMap<Integer, PriorityQueue<Integer>> x : map.values())
+        {
+            res.add(new ArrayList<>());
+            for(PriorityQueue<Integer> y : x.values())
+            {
+                while(!y.isEmpty())
+                    res.get(res.size() - 1).add(y.poll());
             }
         }
-        List < List < Integer >> list = new ArrayList < > ();
-        for (TreeMap < Integer, PriorityQueue < Integer >> ys: map.values()) {
-            list.add(new ArrayList < > ());
-            for (PriorityQueue < Integer > nodes: ys.values()) {
-                while (!nodes.isEmpty()) {
-                    list.get(list.size() - 1).add(nodes.poll());
-                }
-            }
-        }
-        return list;
+        
+        return res;
     }
 }
