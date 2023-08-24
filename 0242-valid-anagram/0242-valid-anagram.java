@@ -2,23 +2,17 @@ class Solution {
     public boolean isAnagram(String s, String t) {
         if(s.length()!=t.length())
              return false;
-        HashMap<Character,Integer> hm1 = new HashMap<>();
-        HashMap<Character,Integer> hm2 = new HashMap<>();
-        for(int i=0;i<s.length();i++)
+        int n = s.length();
+        int arr[] = new int[26];
+        for(int i = 0; i < n; i++)
         {
-            if(hm1.containsKey(s.charAt(i)))
-                hm1.replace(s.charAt(i),hm1.get(s.charAt(i))+1);
-            else
-                hm1.put(s.charAt(i),1);
-
-            if(hm2.containsKey(t.charAt(i)))
-                hm2.replace(t.charAt(i),hm2.get(t.charAt(i))+1);
-            else
-                hm2.put(t.charAt(i),1);
+            arr[s.charAt(i) - 'a']++;
+            arr[t.charAt(i) - 'a']--;
         }
-        if(hm1.equals(hm2))
-            return true;
-        else
-            return false;
+        
+        for(int e : arr)
+            if(e != 0)
+                return false;
+        return true;
     }
 }
