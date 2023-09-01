@@ -1,50 +1,35 @@
 class Solution {
     public int superEggDrop(int k, int n) {
-        Map<String, Integer> memo = new HashMap<>();
-        return drop(k, n, memo);
+        int[][] memo = new int[k + 1][n + 1];
+        return helper(k, n, memo);
     }
-    
-    private int drop(int k, int n, Map<String, Integer> memo) {
-        // Base cases
-        if (k == 1) {
-            return n; // With only one egg, you need to drop it from each floor one by one.
+    private int helper(int K, int N, int[][] memo) {
+        if (N <= 1) {
+            return N;
         }
-        if (n == 0) {
-            return 0; // With zero floors, you don't need any moves.
+        if (K == 1) {
+            return N;
         }
-
-        // Check if the result for the current (k, n) pair is already memoized.
-        String key = k + "," + n;
-        if (memo.containsKey(key)) {
-            return memo.get(key);
+        if (memo[K][N] > 0) {
+            return memo[K][N];
         }
-
-        int minMoves = Integer.MAX_VALUE;
-
-        // Binary search for the optimal drop floor.
-        int left = 1, right = n;
-        while (left <= right) {
-            int mid = left + (right - left) / 2;
-
-            int breaks = drop(k - 1, mid - 1, memo); // Egg breaks, search below mid.
-            int doesntBreak = drop(k, n - mid, memo); // Egg doesn't break, search above mid.
-
-            // Take the maximum of these two cases, plus one for the current drop.
-            int currentMove = 1 + Math.max(breaks, doesntBreak);
-
-            // Update minMoves with the minimum of all possible drop floors.
-            if (breaks > doesntBreak) {
-                right = mid - 1;
-                minMoves = Math.min(minMoves, currentMove);
+        
+        int low = 1, high = N, result = N;
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            int left = helper(K - 1, mid - 1, memo);
+            int right = helper(K, N - mid, memo);
+            result = Math.min(result, Math.max(left, right) + 1);
+            if (left == right) {
+                break;
+            } else if (left < right) {
+                low = mid + 1;
             } else {
-                left = mid + 1;
-                minMoves = Math.min(minMoves, currentMove);
+                high = mid;
             }
         }
-
-        // Memoize the result for this (k, n) pair.
-        memo.put(key, minMoves);
-
-        return minMoves;
-        }
+        memo[K][N] = result;
+        return result;
+    }
+    
 }
