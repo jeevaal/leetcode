@@ -15,7 +15,7 @@ class Solution {
         }
         
         int low = 1, high = N, result = N;
-        while (low < high) {
+        while (low <= high) {
             int mid = (low + high) / 2;
             int left = helper(K - 1, mid - 1, memo);
             int right = helper(K, N - mid, memo);
@@ -25,7 +25,7 @@ class Solution {
             } else if (left < right) {
                 low = mid + 1;
             } else {
-                high = mid;
+                high = mid - 1;
             }
         }
         memo[K][N] = result;
