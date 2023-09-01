@@ -16,7 +16,7 @@ class Solution {
         
         int low = 1, high = N, result = N;
         while (low < high) {
-            int mid = low + (high - low) / 2;
+            int mid = (low + high) / 2;
             int left = helper(K - 1, mid - 1, memo);
             int right = helper(K, N - mid, memo);
             result = Math.min(result, Math.max(left, right) + 1);
