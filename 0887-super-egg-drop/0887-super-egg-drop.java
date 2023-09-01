@@ -20,7 +20,9 @@ class Solution {
             int left = helper(K - 1, mid - 1, memo);
             int right = helper(K, N - mid, memo);
             result = Math.min(result, Math.max(left, right) + 1);
-            if (left < right) {
+            if (left == right) {
+                break;
+            } else if (left < right) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
