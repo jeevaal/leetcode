@@ -15,10 +15,14 @@ class Solution {
             int mid = (low + high) / 2;
             if(nums[mid] > nums[mid - 1] && nums[mid] > nums[mid + 1])
                 return mid;
-            else if(nums[mid] > nums[mid - 1])
+            else if(nums[mid] > nums[mid - 1])//increasing line
                 low = mid + 1;
-            else
+            // else
+            //     high = mid - 1;
+            else if(nums[mid] > nums[mid + 1])//decreasing line
                 high = mid - 1;
+            else
+                low = mid + 1;//or high = mid - 1; // this is only for multiple 
         }
         return -1;
     }
