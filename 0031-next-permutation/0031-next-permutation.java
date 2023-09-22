@@ -28,6 +28,16 @@ class Solution {
             }
         }
         
-        Arrays.sort(nums, index + 1, n);
+        //Arrays.sort(nums, index + 1, n);
+        // reverse the array from index + 1 to n
+        int start = index + 1, end = n - 1;
+        while(start < end)
+        {
+            int temp = nums[start];
+            nums[start] = nums[end];
+            nums[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
