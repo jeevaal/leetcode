@@ -12,7 +12,16 @@ class Solution {
         
         if(index == -1)
         {
-            Arrays.sort(nums);
+            // Arrays.sort(nums);
+            int start = 0, end = n - 1;
+            while(start < end)
+            {
+                int temp = nums[start];
+                nums[start] = nums[end];
+                nums[end] = temp;
+                start++;
+                end--;
+            }
             return;
         }
         
@@ -28,7 +37,6 @@ class Solution {
             }
         }
         
-        //Arrays.sort(nums, index + 1, n);
         // reverse the array from index + 1 to n
         int start = index + 1, end = n - 1;
         while(start < end)
